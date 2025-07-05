@@ -34,7 +34,7 @@ The project is organized into logical modules to separate concerns:
 **Prerequisites:** Python and a virtual environment tool.
 
 1.  **Copy the files into a folder in this directory structure**
-
+```
 ├── .env
 ├── README.md
 ├── app
@@ -52,7 +52,7 @@ The project is organized into logical modules to separate concerns:
 ├── requirements.txt
 └── tests
     └── test_simple_suite.py
-
+```
 2.  **Create and Activate a Virtual Environment**
     ```bash
     python -m venv venv
