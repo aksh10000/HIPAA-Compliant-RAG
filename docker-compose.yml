@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  medical-records-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - ULTRASAFE_API_KEY=${ULTRASAFE_API_KEY:-your-api-key-here}
+      - ULTRASAFE_API_BASE=${ULTRASAFE_API_BASE:-https://api.ultrasafe.ai}
+      - VALID_API_KEY=${VALID_API_KEY:-secret-dev-key}
+    volumes:
+      # Mount to the correct directory path
+      - medical_records_data:/app/data
+      - chroma_db_data:/app/chroma_db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a database initialization service
+  db-init:
+    build: .
+    command: ["python", "populate_db.py"]
+    environment:
+      - ULTRASAFE_API_KEY=${ULTRASAFE_API_KEY:-your-api-key-here}
+      - ULTRASAFE_API_BASE=${ULTRASAFE_API_BASE:-https://api.ultrasafe.ai}
+      - VALID_API_KEY=${VALID_API_KEY:-secret-dev-key}
+    volumes:
+      - medical_records_data:/app/data
+      - chroma_db_data:/app/chroma_db
+    profiles:
+      - init
+
+# Define named volumes
+volumes:
+  medical_records_data:
+  chroma_db_data: 
