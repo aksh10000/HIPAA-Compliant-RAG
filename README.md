@@ -33,7 +33,7 @@ The project is organized into logical modules to separate concerns:
 
 **Prerequisites:** Python and a virtual environment tool.
 
-1.  **Copy the files into a folder in this directory structure**
+1.  **Copy the files into a folder in this directory structure or clone the directory using git clone**
 ```
 ├── .env
 ├── README.md
